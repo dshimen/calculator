@@ -23,7 +23,6 @@ public class Main {
             System.out.println("Wyrażenie było błędne i dało się go policzyć");
             System.exit(0);
         }else{
-            int state = 0; //1 - plus, 2 - minus, 3 - multiply, 4 - divide
             double currentCalc = 0;
             removeMultiply(elements);
             removeDevide(elements);
