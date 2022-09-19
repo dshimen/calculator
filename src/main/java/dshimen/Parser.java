@@ -19,7 +19,7 @@ public class Parser {
                 }
             }else if(dataChar[i] == ')'){
                 if(state == 66){
-                    state = 0;
+                    state = 6;
                     elements.add(getNumber(dataChar, dataString, i));
                     elements.add(')');
                 }else {
@@ -38,7 +38,7 @@ public class Parser {
                     state = 2;
                     elements.add(getNumber(dataChar, dataString, i));
                     elements.add('-');
-                }else {
+                }else if(state != 1 && state != 0 && state != 2 && state != 3 && state != 4){
                     elements.add('-');
                 }
             }else if(dataChar[i] == '*'){
@@ -71,10 +71,10 @@ public class Parser {
     private static int getNumber(char [] dataChar, String dataString, int length){
         for(int i = length-1; i >= 0;i--){
             if(!isNumber(dataChar[i]) || i == 0){
-                if(dataChar[i] == '-' && ((i > 0 && dataChar[i-1] == '-') || (i == 0))){
+                if(i > 0 && (dataChar[i] == '-') && (dataChar[i-1] == '(' || dataChar[i-1] == '-' || dataChar[i-1] == '+' || dataChar[i-1] == '*' || dataChar[i-1] == '/')){
                     return  Integer.parseInt(dataString.substring(i, length));
                 }else{
-                    if(i==0){
+                    if(i==0 && dataChar[i] != '('){
                         return  Integer.parseInt(dataString.substring(i, length));
                     }else{
                         return  Integer.parseInt(dataString.substring(i+1, length));
